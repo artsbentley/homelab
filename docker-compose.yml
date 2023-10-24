@@ -73,6 +73,26 @@ services:
       - /dev/dri/card0:/dev/dri/card0
     restart: always
 
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      - HOMEPAGE_VAR_TITLE=${HOMEPAGE_VAR_TITLE}
+      - HOMEPAGE_VAR_SEARCH_PROVIDER=${HOMEPAGE_VAR_SEARCH_PROVIDER}
+      - HOMEPAGE_VAR_HEADER_STYLE=${HOMEPAGE_VAR_HEADER_STYLE}
+      - HOMEPAGE_VAR_WEATHER_CITY=${HOMEPAGE_VAR_WEATHER_CITY}
+      - HOMEPAGE_VAR_WEATHER_LAT=${HOMEPAGE_VAR_WEATHER_LAT}
+      - HOMEPAGE_VAR_WEATHER_LONG=${HOMEPAGE_VAR_WEATHER_LONG}
+      - HOMEPAGE_VAR_WEATHER_TIME=${TIMEZONE}
+      - HOMEPAGE_VAR_WEATHER_UNIT=${HOMEPAGE_VAR_WEATHER_UNIT}
+    volumes:
+      - ./homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${DATA_ROOT}:/data
+    restart: always
+    command:
+      [sh, -c, "cp -n /app/config/tpl/*.yaml /app/config && node server.js"]
+
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
