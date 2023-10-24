@@ -67,7 +67,6 @@ services:
       - ./jellyfin:/config
       - ${DATA_ROOT}:/data
     ports:
-    ports:
       - "8096:8096"
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
