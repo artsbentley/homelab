@@ -89,7 +89,8 @@ services:
       - ./homepage:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${DATA_ROOT}:/data
-    ports: -3000:3000
+    ports:
+      - 3000:3000
     restart: always
     command:
       [sh, -c, "cp -n /app/config/tpl/*.yaml /app/config && node server.js"]
