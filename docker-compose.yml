@@ -9,7 +9,7 @@ services:
       - TZ=${TIMEZONE}
     volumes:
       - ./sonarr:/config
-      - F:\docker-compose-nas\data:/data
+      - ${DATA_ROOT}:/data
     ports:
       - "8989:8989"
     restart: always
@@ -22,7 +22,7 @@ services:
       - TZ=${TIMEZONE}
     volumes:
       - ./radarr:/config
-      - F:\docker-compose-nas\data:/data
+      - ${DATA_ROOT}:/data
     ports:
       - "7878:7878"
     restart: always
@@ -48,7 +48,7 @@ services:
       - WEBUI_PORT=8080
     volumes:
       - ./qbittorrent:/config
-      - F:\docker-compose-nas\data\torrents:/data/torrents
+      - ${DOWNLOAD_ROOT}:/data/torrents
     ports:
       - 8080:8080
       - 6881:6881
@@ -65,7 +65,8 @@ services:
       - JELLYFIN_PublishedServerUrl=${HOSTNAME}/jellyfin
     volumes:
       - ./jellyfin:/config
-      - F:\docker-compose-nas\data:/data
+      - ${DATA_ROOT}:/data
+    ports:
     ports:
       - "8096:8096"
     devices:
@@ -83,4 +84,4 @@ services:
       - 5055:5055
     volumes:
       - ./jellyseerr:/app/config
-    restart: unless-stopped `
+    restart: unless-stopped
